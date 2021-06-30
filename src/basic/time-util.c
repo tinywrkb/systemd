@@ -1455,7 +1455,7 @@ int get_timezone(char **ret) {
         char *z;
         int r;
 
-        r = readlink_malloc("/etc/localtime", &t);
+        r = chase_symlinks("/etc/localtime", NULL, NULL, &t, NULL);
         if (r == -ENOENT) {
                 /* If the symlink does not exist, assume "UTC", like glibc does*/
                 z = strdup("UTC");
